@@ -3,8 +3,7 @@
 #include <glad/glad.h>
 #include <map>
 #include <spdlog/spdlog.h>
-
-#include "../math/math.h"
+#include <glm/glm.hpp>
 
 class Shader
 {
@@ -14,17 +13,13 @@ public:
 
 	inline GLuint getId() const { return m_id; }
 
-	void setVec2(const std::string& name, const Vec2& value) const;
-	void setVec3(const std::string& name, const Vec3& value) const;
-	void setVec4(const std::string& name, const Vec4& value) const;
+	void setVec2(const std::string& name, const glm::vec2& value) const;
+	void setVec3(const std::string& name, const glm::vec3& value) const;
+	void setVec4(const std::string& name, const glm::vec4& value) const;
 
-	void setVec2f(const std::string& name, const Vec2f& value) const;
-	void setVec3f(const std::string& name, const Vec3f& value) const;
-	void setVec4f(const std::string& name, const Vec4f& value) const;
-
-	void setMat2f(const std::string& name, const Mat2f& value) const;
-	void setMat3f(const std::string& name, const Mat3f& value) const;
-	void setMat4f(const std::string& name, const Mat4f& value) const;
+	void setMat2(const std::string& name, const glm::mat2& value) const;
+	void setMat3(const std::string& name, const glm::mat3& value) const;
+	void setMat4(const std::string& name, const glm::mat4& value) const;
 
 private:
 	std::map<std::string, GLint> m_uniforms;

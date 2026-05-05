@@ -1,8 +1,9 @@
 #include <string>
 #include <glad/glad.h>
 #include <spdlog/spdlog.h>
+#include <glm/glm.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
-#include "../math/mat.h"
 #include "shader.h"
 #include "../util/io.h"
 
@@ -83,56 +84,38 @@ Shader::~Shader()
 	glDeleteProgram(m_id);
 }
 
-void Shader::setVec2(const std::string& name, const Vec2& value) const
+void Shader::setVec2(const std::string& name, const glm::vec2& value) const
 {
 	if (!hasUniform(name)) return;
-	glUniform2iv(m_uniforms.at(name), 1, value.data);
+	glUniform2fv(m_uniforms.at(name), 1, glm::value_ptr(value));
 }
 
-void Shader::setVec3(const std::string& name, const Vec3& value) const
+void Shader::setVec3(const std::string& name, const glm::vec3& value) const
 {
 	if (!hasUniform(name)) return;
-	glUniform3iv(m_uniforms.at(name), 1, value.data);
+	glUniform3fv(m_uniforms.at(name), 1, glm::value_ptr(value));
 }
 
-void Shader::setVec4(const std::string& name, const Vec4& value) const
+void Shader::setVec4(const std::string& name, const glm::vec4& value) const
 {
 	if (!hasUniform(name)) return;
-	glUniform4iv(m_uniforms.at(name), 1, value.data);
+	glUniform4fv(m_uniforms.at(name), 1, glm::value_ptr(value));
 }
 
-void Shader::setVec2f(const std::string& name, const Vec2f& value) const
+void Shader::setMat2(const std::string& name, const glm::mat2& value) const
 {
 	if (!hasUniform(name)) return;
-	glUniform2fv(m_uniforms.at(name), 1, value.data);
+	glUniformMatrix2fv(m_uniforms.at(name), 1, GL_FALSE, glm::value_ptr(value));
 }
 
-void Shader::setVec3f(const std::string& name, const Vec3f& value) const
+void Shader::setMat3(const std::string& name, const glm::mat3& value) const
 {
 	if (!hasUniform(name)) return;
-	glUniform3fv(m_uniforms.at(name), 1, value.data);
+	glUniformMatrix3fv(m_uniforms.at(name), 1, GL_FALSE, glm::value_ptr(value));
 }
 
-void Shader::setVec4f(const std::string& name, const Vec4f& value) const
+void Shader::setMat4(const std::string& name, const glm::mat4& value) const
 {
 	if (!hasUniform(name)) return;
-	glUniform4fv(m_uniforms.at(name), 1, value.data);
-}
-
-void Shader::setMat2f(const std::string& name, const Mat2f& value) const
-{
-	if (!hasUniform(name)) return;
-	glUniformMatrix2fv(m_uniforms.at(name), 1, GL_FALSE, value[0].data);
-}
-
-void Shader::setMat3f(const std::string& name, const Mat3f& value) const
-{
-	if (!hasUniform(name)) return;
-	glUniformMatrix3fv(m_uniforms.at(name), 1, GL_FALSE, value[0].data);
-}
-
-void Shader::setMat4f(const std::string& name, const Mat4f& value) const
-{
-	if (!hasUniform(name)) return;
-	glUniformMatrix4fv(m_uniforms.at(name), 1, GL_FALSE, value[0].data);
+	glUniformMatrix4fv(m_uniforms.at(name), 1, GL_FALSE, glm::value_ptr(value));
 }

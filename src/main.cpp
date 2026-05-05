@@ -1,7 +1,6 @@
 #include <spdlog/spdlog.h>
 
 #include "app.h"
-#include "math/math.h"
 
 int main()
 {
