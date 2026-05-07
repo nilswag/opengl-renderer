@@ -1,4 +1,5 @@
 #pragma once
+#include <glad/glad.h>
 #include <glm/glm.hpp>
 #include <vector>
 
@@ -22,5 +23,5 @@ public:
 private:
 	std::vector<QuadInstance> m_quads;
 	Shader m_quadShader;
-	unsigned int m_quadVao;
+	GLuint m_quadVao;
 };

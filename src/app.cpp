@@ -36,8 +36,8 @@ void App::run()
 			timer -= 1.0f;
 		}
 
-		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT);
+		float color [4] = { 0 };
+		glClearNamedFramebufferfv(0, GL_COLOR, 0, color);
 
 		m_window.swapBuffers();
 		m_window.pollEvents();

@@ -1,3 +1,4 @@
+#include <glad/glad.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
@@ -22,10 +23,16 @@ Renderer::Renderer()
 	};
 
 	static unsigned int indices[] = {
-		
+		0, 1, 2,
+		0, 2, 3
 	};
 
 	glCreateVertexArrays(1, &m_quadVao);
+
+	GLuint quadVbo, quadEbo;
+
+	glCreateBuffers(1, &quadVbo);
+	glNamedBufferStorage(quadVbo, sizeof(vertices), vertices, GL_MAP_READ_BIT);
 
 }
 

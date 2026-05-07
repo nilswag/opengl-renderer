@@ -4,6 +4,45 @@
 
 #include "window.h"
 
+static void messageCallback(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, GLchar const* message, void const* user_param)
+{
+	auto const srcStr = [source]() {
+		switch (source)
+		{
+		case GL_DEBUG_SOURCE_API: return "API";
+		case GL_DEBUG_SOURCE_WINDOW_SYSTEM: return "WINDOW SYSTEM";
+		case GL_DEBUG_SOURCE_SHADER_COMPILER: return "SHADER COMPILER";
+		case GL_DEBUG_SOURCE_THIRD_PARTY: return "THIRD PARTY";
+		case GL_DEBUG_SOURCE_APPLICATION: return "APPLICATION";
+		case GL_DEBUG_SOURCE_OTHER: return "OTHER";
+		}
+		}();
+
+	auto const typeStr = [type]() {
+		switch (type)
+		{
+		case GL_DEBUG_TYPE_ERROR: return "ERROR";
+		case GL_DEBUG_TYPE_DEPRECATED_BEHAVIOR: return "DEPRECATED_BEHAVIOR";
+		case GL_DEBUG_TYPE_UNDEFINED_BEHAVIOR: return "UNDEFINED_BEHAVIOR";
+		case GL_DEBUG_TYPE_PORTABILITY: return "PORTABILITY";
+		case GL_DEBUG_TYPE_PERFORMANCE: return "PERFORMANCE";
+		case GL_DEBUG_TYPE_MARKER: return "MARKER";
+		case GL_DEBUG_TYPE_OTHER: return "OTHER";
+		}
+		}();
+
+	spdlog::level::level_enum spdLevel = [severity]() {
+		switch (severity)
+		{
+		case GL_DEBUG_SEVERITY_MEDIUM: return spdlog::level::level_enum::warn;
+		case GL_DEBUG_SEVERITY_HIGH: return spdlog::level::level_enum::critical;
+		default: return spdlog::level::level_enum::debug;
+		}
+		}();
+
+	spdlog::log(spdLevel, "[{}:{}] {}", srcStr, typeStr, message);
+}
+
 void Window::framebufferSizeCallback(GLFWwindow* window, int width, int height)
 {
 	Window* ptr = static_cast<Window*>(glfwGetWindowUserPointer(window));
@@ -40,6 +79,10 @@ Window::Window(int width, int height, const std::string& title)
 		spdlog::critical("Failed to initialize glad");
 		std::abort();
 	}
+
+	glEnable(GL_DEBUG_OUTPUT);
+	glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
+	glDebugMessageCallback(messageCallback, nullptr);
 
 	glViewport(0, 0, width, height);
 	glfwSetWindowUserPointer(m_window, this);
