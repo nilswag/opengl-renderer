@@ -8,6 +8,8 @@ add_subdirectory(third_party/glfw)
 add_subdirectory(third_party/glad)
 add_subdirectory(third_party/glm)
 
+find_package(Vulkan REQUIRED)
+
 file(GLOB_RECURSE SOURCES src/*.cpp)
 
 file(CREATE_LINK
@@ -26,6 +28,7 @@ target_link_libraries(${PROJECT_NAME}
 	PRIVATE glfw
 	PRIVATE glad
 	PRIVATE glm
+	PRIVATE Vulkan::Vulkan
 )
 
 target_compile_definitions(${PROJECT_NAME} PRIVATE
