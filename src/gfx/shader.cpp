@@ -50,8 +50,8 @@ GLuint shader::compile_shader (const std::string& src, GLenum type)
 shader::shader(const std::string& vertex_path, const std::string& fragment_path, const std::string& tag)
 	: id(0), tag(tag)
 {
-	std::string vertex_src = readFile(vertex_path);
-	std::string fragment_src = readFile(fragment_path);
+	std::string vertex_src = read_file(vertex_path);
+	std::string fragment_src = read_file(fragment_path);
 	
 	GLuint vertex_shader = compile_shader(vertex_src, GL_VERTEX_SHADER);
 	GLuint fragment_shader = compile_shader(fragment_src, GL_FRAGMENT_SHADER);

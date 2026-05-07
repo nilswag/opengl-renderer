@@ -40,7 +40,7 @@ static void message_callback(GLenum source, GLenum type, GLuint id, GLenum sever
 		}
 		}();
 
-	spdlog::log(spd_level, "[{}:{}] {}", src_str, type_str, message);
+	spdlog::log(spd_level, "GL Log: [{}:{}] {}", src_str, type_str, message);
 }
 
 void window::frame_buffer_size_callback(GLFWwindow* handle, int width, int height)

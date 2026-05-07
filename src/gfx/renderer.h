@@ -22,6 +22,6 @@ public:
 
 private:
 	std::vector<quad_instance> quads;
-	Shader quad_shader;
+	shader quad_shader;
 	GLuint quad_vao;
 };

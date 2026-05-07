@@ -9,7 +9,7 @@ int main()
 #else
 	spdlog::set_level(spdlog::level::info);
 #endif
-	App app;
+	app app;
 	app.run();
 	return 0;
 }
