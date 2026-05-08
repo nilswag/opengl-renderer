@@ -23,10 +23,9 @@ namespace engine
 
 int main()
 {
-	engine::App app;
-
 	try
 	{
+		engine::App app;
 		app.run();
 	} catch (const std::exception& e)
 	{
