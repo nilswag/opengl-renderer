@@ -7,7 +7,7 @@ int main()
 {
 	try
 	{
-		App app;
+		App app(800, 800, "Vulkan");
 		app.run();
 	}
 	catch (const std::exception& e)
