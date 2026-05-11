@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <GLFW/glfw3.h>
+#include <vulkan/vulkan_raii.hpp>
 
 class App
 {
@@ -16,4 +17,6 @@ public:
 
 private:
 	GLFWwindow* window;
+	vk::raii::Context context;
+	vk::raii::Instance instance;
 };
