@@ -6,6 +6,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 add_subdirectory(third_party/glfw)
 add_subdirectory(third_party/glm)
+add_subdirectory(third_party/glad)
 
 file(GLOB_RECURSE SOURCES src/*.cpp)
 
@@ -18,6 +19,7 @@ target_include_directories(${PROJECT_NAME}
 target_link_libraries(${PROJECT_NAME}
 	PRIVATE glfw
 	PRIVATE glm
+	PRIVATE glad
 )
 
 target_compile_definitions(${PROJECT_NAME} PRIVATE
