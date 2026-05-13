@@ -1,7 +1,8 @@
-#include <print>
+#include "gfx/window.h"
 
 int main()
 {
-	std::println("Hello World!");
+	Window window(800, 800, "OpenGL");
+
 	return 0;
 }
