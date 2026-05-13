@@ -9,7 +9,7 @@ int main()
 	{
 		window.pollEvents();
 
-		float color[3] = { 0 };
+		float color[3] = { 0.0f };
 		glClearNamedFramebufferfv(0, GL_COLOR, 0, color);
 		window.swapBuffers();
 	}
