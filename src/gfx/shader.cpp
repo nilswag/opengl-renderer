@@ -26,8 +26,8 @@ GLuint Shader::compileShader(const std::string& src, GLenum type)
 {
 	GLuint shader = glCreateShader(type);
 
-	const char* GLchar = src.c_str();
-	glShaderSource(shader, 1, &csrc, nullptr);
+	const char* str = src.c_str();
+	glShaderSource(shader, 1, &str, nullptr);
 	glCompileShader(shader);
 
 	return shader;
