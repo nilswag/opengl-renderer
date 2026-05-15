@@ -71,7 +71,6 @@ Window::Window(int width, int height, const std::string& title)
 		GL_TRUE
 	);
 #endif
-	glEnable(999999);
 	glViewport(0, 0, width, height);
 }
 
