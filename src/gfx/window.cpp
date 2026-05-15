@@ -14,6 +14,7 @@ static void APIENTRY glErrorCallback(GLenum source, GLenum type, GLuint id, GLen
 			case GL_DEBUG_SEVERITY_LOW: return "Low";
 			case GL_DEBUG_SEVERITY_MEDIUM: return "Medium";
 			case GL_DEBUG_SEVERITY_HIGH: return "High";
+			default: return "N/A";
 			}
 		}();
 
@@ -27,6 +28,7 @@ static void APIENTRY glErrorCallback(GLenum source, GLenum type, GLuint id, GLen
 			case GL_DEBUG_TYPE_PORTABILITY: return "Portability";
 			case GL_DEBUG_TYPE_PERFORMANCE: return "Performance";
 			case GL_DEBUG_TYPE_OTHER: return "Other";
+			default: return "N/A";
 			}
 		}();
 
