@@ -6,9 +6,32 @@
 #include <GLFW/glfw3.h>
 #include "window.hpp"
 
-static void APIENTRY glErrorCallback(GLenum source, GLuint id, GLenum severity, GLsizei length, const GLchar* message, const void* userParam)
+static void APIENTRY glErrorCallback(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar* message, const void* userParam)
 {
+	std::string severityStr = [severity]()
+		{
+			switch (severity)
+			{
+			case GL_DEBUG_SEVERITY_LOW: return "Low";
+			case GL_DEBUG_SEVERITY_MEDIUM: return "Medium";
+			case GL_DEBUG_SEVERITY_HIGH: return "High";
+			}
+		}();
 
+	std::string typeStr = [type]()
+		{
+			switch (type)
+			{
+			case GL_DEBUG_TYPE_ERROR: return "Error";
+			case GL_DEBUG_TYPE_DEPRECATED_BEHAVIOR: return "Deprecated behavior";
+			case GL_DEBUG_TYPE_UNDEFINED_BEHAVIOR: return "Undefined behavior";
+			case GL_DEBUG_TYPE_PORTABILITY: return "Portability";
+			case GL_DEBUG_TYPE_PERFORMANCE: return "Performance";
+			case GL_DEBUG_TYPE_OTHER: return "Other";
+			}
+		}();
+
+	std::println("OpenGL error ({}): [{}:{}] {}", id, severityStr, typeStr, message);
 }
 
 static void glfwErrorCallback(int error, const char* description)
