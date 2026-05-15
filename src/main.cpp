@@ -1,4 +1,4 @@
-#include "gfx/window.h"
+#include "gfx/window.hpp"
 
 int main()
 {
