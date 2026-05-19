@@ -4,26 +4,45 @@
 #include "shader.hpp"
 #include "../util/io.h"
 
-Shader::Shader(const std::string& vertexPath, const std::string& fragmentPath)
+ShaderProgram ShaderProgram::createGraphics(const std::string& vertexPath, const std::string& fragmentPath)
 {
-	program = glCreateProgram();
+	ShaderProgram shader;
+	shader.id = glCreateProgram();
+	
 	GLuint vertexShader = compileShader(readFile(vertexPath), GL_VERTEX_SHADER);
 	GLuint fragmentShader = compileShader(readFile(fragmentPath), GL_FRAGMENT_SHADER);
 
-	glAttachShader(program, vertexShader);
-	glAttachShader(program, fragmentShader);
-	glLinkProgram(program);
+	glAttachShader(shader.id, vertexShader);
+	glAttachShader(shader.id, fragmentShader);
+	glLinkProgram(shader.id);
 
 	glDeleteShader(vertexShader);
 	glDeleteShader(fragmentShader);
+
+	return shader;
 }
 
-Shader::~Shader()
+ShaderProgram ShaderProgram::createCompute(const std::string& computePath)
 {
-	glDeleteProgram(program);
+	ShaderProgram shader;
+	shader.id = glCreateProgram();
+
+	GLuint computeShader = compileShader(readFile(computePath), GL_COMPUTE_SHADER);
+
+	glAttachShader(shader.id, computeShader);
+	glLinkProgram(shader.id);
+
+	glDeleteShader(computeShader);
+
+	return shader;
 }
 
-GLuint Shader::compileShader(const std::string& src, GLenum type)
+ShaderProgram::~ShaderProgram()
+{
+	glDeleteProgram(id);
+}
+
+GLuint ShaderProgram::compileShader(const std::string& src, GLenum type)
 {
 	GLuint shader = glCreateShader(type);
 
@@ -31,18 +50,18 @@ GLuint Shader::compileShader(const std::string& src, GLenum type)
 	glShaderSource(shader, 1, &str, nullptr);
 	glCompileShader(shader);
 
-	GLint success;
-	glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
-	if (!success)
-	{
-		std::string log;
-		GLint length;
-		glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &length);
-		log.resize(length);
+	//GLint success;
+	//glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
+	//if (!success)
+	//{
+	//	std::string log;
+	//	GLint length;
+	//	glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &length);
+	//	log.resize(length);
 
-		glGetShaderInfoLog(shader, log.size(), nullptr, log.data());
-		throw std::runtime_error("Could not compile shader: " + log);
-	}
+	//	glGetShaderInfoLog(shader, log.size(), nullptr, log.data());
+	//	throw std::runtime_error("Could not compile shader: " + log);
+	//}
 
 	return shader;
 }
