@@ -9,7 +9,6 @@ int main()
 	try
 	{
 		Window window(800, 800, "OpenGL");
-		ShaderProgram shader = ShaderProgram::createGraphics("shaders/vertex.glsl", "shaders/fragment.glsl");
 
 		while (!window.shouldClose())
 		{

@@ -25,6 +25,14 @@ ShaderProgram ShaderProgram::createGraphics(const std::string& vertexPath, const
 ShaderProgram ShaderProgram::createCompute(const std::string& computePath)
 {
 	ShaderProgram shader;
+	shader.id = glCreateProgram();
+
+	GLuint computeShader = compileShader(readFile(computePath), GL_COMPUTE_SHADER);
+
+	glAttachShader(shader.id, computeShader);
+	glLinkProgram(shader.id);
+
+	glDeleteShader(computeShader);
 
 	return shader;
 }
