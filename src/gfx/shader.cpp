@@ -4,26 +4,29 @@
 #include "shader.hpp"
 #include "../util/io.h"
 
-Shader::Shader(const std::string& vertexPath, const std::string& fragmentPath)
+ShaderProgram ShaderProgram::createGraphics(const std::string& vertexPath, const std::string& fragmentPath)
 {
-	program = glCreateProgram();
+	ShaderProgram shader;
+	
 	GLuint vertexShader = compileShader(readFile(vertexPath), GL_VERTEX_SHADER);
 	GLuint fragmentShader = compileShader(readFile(fragmentPath), GL_FRAGMENT_SHADER);
 
-	glAttachShader(program, vertexShader);
-	glAttachShader(program, fragmentShader);
-	glLinkProgram(program);
-
-	glDeleteShader(vertexShader);
-	glDeleteShader(fragmentShader);
+	return shader;
 }
 
-Shader::~Shader()
+ShaderProgram ShaderProgram::createCompute(const std::string& computePath)
 {
-	glDeleteProgram(program);
+	ShaderProgram shader;
+
+	return shader;
 }
 
-GLuint Shader::compileShader(const std::string& src, GLenum type)
+ShaderProgram::~ShaderProgram()
+{
+	glDeleteProgram(id);
+}
+
+GLuint ShaderProgram::compileShader(const std::string& src, GLenum type)
 {
 	GLuint shader = glCreateShader(type);
 

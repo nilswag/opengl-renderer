@@ -2,17 +2,25 @@
 #include <string>
 #include <glad/gl.h>
 
-class Shader
+class ShaderProgram
 {
 public:
-	Shader(const std::string& vertexPath, const std::string& fragmentPath);
-	~Shader();
+	static ShaderProgram createGraphics(const std::string& vertexPath, const std::string& fragmentPath);
+	static ShaderProgram createCompute(const std::string& computePath);
 
-	inline void use() const { glUseProgram(program); }
-	inline GLuint getPrograM() const { return program; }
+	ShaderProgram(ShaderProgram&&) = default;
+	ShaderProgram& operator=(ShaderProgram&&) = default;
+	~ShaderProgram();
+
+	inline GLuint get() const { return id; }
+	inline void use() const { glUseProgram(id); }
 
 private:
-	GLuint compileShader(const std::string& src, GLenum type);
+	static GLuint compileShader(const std::string& src, GLenum type);
 
-	GLuint program;
+	ShaderProgram() = default;
+	ShaderProgram(const ShaderProgram&) = default;
+	ShaderProgram& operator=(const ShaderProgram&) = default;
+
+	GLuint id;
 };
