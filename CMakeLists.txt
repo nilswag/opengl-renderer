@@ -27,7 +27,7 @@ target_compile_definitions(${PROJECT_NAME} PRIVATE
 )
 
 add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy_directory
+    COMMAND ${CMAKE_COMMAND} -E create_symlink
     ${CMAKE_SOURCE_DIR}/resources
     $<TARGET_FILE_DIR:${PROJECT_NAME}>/resources
 )

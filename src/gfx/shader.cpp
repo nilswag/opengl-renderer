@@ -50,18 +50,18 @@ GLuint ShaderProgram::compileShader(const std::string& src, GLenum type)
 	glShaderSource(shader, 1, &str, nullptr);
 	glCompileShader(shader);
 
-	//GLint success;
-	//glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
-	//if (!success)
-	//{
-	//	std::string log;
-	//	GLint length;
-	//	glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &length);
-	//	log.resize(length);
+	GLint success;
+	glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
+	if (!success)
+	{
+		std::string log;
+		GLint length;
+		glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &length);
+		log.resize(length);
 
-	//	glGetShaderInfoLog(shader, log.size(), nullptr, log.data());
-	//	throw std::runtime_error("Could not compile shader: " + log);
-	//}
+		glGetShaderInfoLog(shader, log.size(), nullptr, log.data());
+		throw std::runtime_error("Could not compile shader: " + log);
+	}
 
 	return shader;
 }

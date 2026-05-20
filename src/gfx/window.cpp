@@ -50,6 +50,9 @@ Window::Window(int width, int height, const std::string& title)
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
+	// TODO: implement proper window resize handling
+	glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
+
 	window = glfwCreateWindow(width, height, title.c_str(), nullptr, nullptr);
 	if (!window)
 		throw std::runtime_error("Unable to initialize glfw window");

@@ -2,13 +2,20 @@
 #include <print>
 #include <glad/gl.h>
 #include "gfx/window.hpp"
+#include "gfx/renderer.hpp"
 #include "gfx/shader.hpp"
 
 int main()
 {
 	try
 	{
-		Window window(800, 800, "OpenGL");
+		const int width = 800;
+		const int height = 800;
+		Window window(width, height, "OpenGL");
+
+		ShaderProgram test = ShaderProgram::createGraphics("shaders/vertex.glsl", "shaders/fragment.glsl");
+
+		//Renderer renderer(width, height);
 
 		while (!window.shouldClose())
 		{
