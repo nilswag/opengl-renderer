@@ -14,16 +14,28 @@ static unsigned int indices[] = {
 };
 
 Renderer::Renderer()
+	: vao(0), vbo(0), texBuf(0)
 {
-	glCreateVertexArrays(1, &vao);
-	
-
 	GLuint vbo, ebo;
 
+	// configure vbo for quad
 	glCreateBuffers(1, &vbo);
 	glNamedBufferStorage(vbo, sizeof(vertices), vertices, GL_DYNAMIC_STORAGE_BIT);
 
-	glCreateTextures(GL_TEXTURE_2D, 1, &texBuf);
+	// configure indices for quad
+	glCreateBuffers(1, &ebo);
+	glNamedBufferStorage(ebo, sizeof(indices), indices, GL_DYNAMIC_STORAGE_BIT);
+
+	// configure vao
+	glCreateVertexArrays(1, &vao);
+	glVertexArrayVertexBuffer(vao, 0, vbo, 0, 2 * sizeof(float));
+	glVertexArrayElementBuffer(vao, ebo);
+
+	glEnableVertexArrayAttrib(vao, 0);
+
+	glVertexAttribFormat(0, 2, GL_FLOAT, GL_FALSE, 0);
+
+	glVertexArrayAttribBinding(vao, 0, 0);
 }
 
 Renderer::~Renderer()

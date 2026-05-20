@@ -13,5 +13,5 @@ public:
 	Renderer& operator=(Renderer&&) = delete;
 
 private:
-	GLuint vao, texBuf;
+	GLuint vao, vbo, texBuf;
 };
